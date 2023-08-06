@@ -2,6 +2,7 @@
 from bs4 import BeautifulSoup, NavigableString, Tag
 import requests
 import re
+import wikiCode
 
 
 class WikiScraper:
