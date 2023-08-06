@@ -97,7 +97,10 @@ def handleUserInputGoogle():
         while True:
             try:
                 print('Type the number to look at that page?')
-                user = int(input('> '))
+                user = input('> ')
+                if user == 'done':
+                    break
+                user = int(user)
                 linkPage(googleBox[1][user].attrs.get('href'))
                 break  # break out of the loop if input is valid
             except ValueError:
@@ -105,4 +108,5 @@ def handleUserInputGoogle():
             except IndexError:
                 print("Invalid index, please enter a valid number.")
                 
-handleUserInputGoogle()
+if __name__ == "__main__":
+    handleUserInputGoogle()
