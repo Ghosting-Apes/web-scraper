@@ -69,7 +69,7 @@ def comments(Link):
     
 
 
-def handleUserInputReddit():       
+def handleInput():       
     user = ''
     while user != 'done':
         print('What do you want to look up on Reddit or type "done" to quit?')
@@ -91,4 +91,4 @@ def handleUserInputReddit():
                 print("Invalid index, please enter a valid number.")
                 
 if __name__ == "__main__":
-    handleUserInputReddit()
+    handleInput()

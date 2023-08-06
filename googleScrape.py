@@ -24,7 +24,7 @@ def extract_url(original_url):
         return url[0]
 
 
-def Google(phrase):
+def google(phrase):
     irrelevant_phrases = ["People also ask", "More results", "From your IP address", "-","·","","About Featured Snippets","All","/"]
     session = HTMLSession()
     searchq = phrase
@@ -84,14 +84,14 @@ def linkPage(linker):
     print("\033[1m" + "Article Text: " + "\033[0m")
     print(article.cleaned_text + "\n")
 
-def handleUserInputGoogle(): 
+def handleInput(): 
     user = ''
     while user != 'done':
         print('What do you want to look up on Google or type "done" to quit?')
         user = input('> ')
         if user == 'done':
             break
-        googleBox = Google(user)
+        googleBox = google(user)
         linkDisplay(googleBox)
 
         while True:
@@ -109,4 +109,4 @@ def handleUserInputGoogle():
                 print("Invalid index, please enter a valid number.")
                 
 if __name__ == "__main__":
-    handleUserInputGoogle()
+    handleInput()
