@@ -11,20 +11,23 @@ def search(phrase: Annotated[str, typer.Argument(help="Input the phrase to be sc
         
         
 @app.command()
-def run(hasCommand: bool = True):
-        print(">> ", end="")
-        inp = input()
-        inpList = inp.split("\"")[1:]
-        inpList[1] = inpList[1].strip()
-        print(inpList)
-        while hasCommand:
-             search(inpList[0], inpList[1])
-             print(">> ", end="")
-             inp = input()
-             if inp == "quit":
-                  break
-             inpList = inp.split("\"")[1:]
-             inpList[1] = inpList[1].strip()
+def run():
+    typer.Argument(help="Input source to scrape (e.g. Wikipedia)")
+    print("Enter search engine. :: ")
+    engine = input(">> ")
+    
+    print("Enter prompt. ::")
+    prompt = input(">> ")
+    while True:
+        if prompt == "quit":
+            exit()
+        
+        if prompt == "done":
+            run()
+            
+        search(prompt, engine)
+        prompt = input(">> ")
+        
 
 @app.callback()
 def main():
