@@ -10,13 +10,13 @@ class WikiScraper:
     _dict_with_text_links = {}
     _vision = 1
     _text_width = 150
-    _always_commands = ['-h', '--help', '-v', '--v', '-d', '--done', '-w', '--width', '--homepage']
+    _always_commands = ['-h', '--help', '-v', '--vision', '-d', '--done', '-w', '--width', '--homepage']
     _number_commands = [-1, -2]
 
     def __init(self):
         self._dict_with_text_links = {}
         self._text_width = 150
-        self._always_commands = ['-h', '--help', '-v', '--v', '-d', '--done', "searching"]
+        self._always_commands = ['-h', '--help', '-v', '--vision', '-d', '--done', "searching"]
         self._number_commands = [-1, -2]
 
     def _set_vision(self, vision: int) -> None:
@@ -164,23 +164,28 @@ class WikiScraper:
         elif tokens[0] in self._always_commands or (tokens[0][0] == '\"' and tokens[len(tokens) - 1][len(tokens[len(tokens) - 1]) - 1] == '\"'):
             if user_input in ['-h', '--help']:
                 self.print_help()
-            elif tokens[0] in ['-v', '--vision']:
+            elif tokens[0] in ['-v', '--vision'] and len(tokens) > 1:
                 self._set_vision(int(tokens[1]))
-            elif tokens[0] in ['-d', '--done']:
+            elif tokens[0] in ['-d', '--done'] and len(tokens) > 1:
                 return
-            elif tokens[0] in ['-w', '--width']:
+            elif tokens[0] in ['-w', '--width'] and len(tokens) > 1:
                 self._set_size(int(tokens[1]))
             elif tokens[0] in ['--homepage']:
                 self._quick_search('wiki/Main_Page')
                 self.scrape_web_page()
                 self.print_wiki_page()
-            else:
+            elif tokens[0][0] == '\"' and tokens[len(tokens) - 1][len(tokens[len(tokens) - 1]) - 1] == '\"':
                 search_str = re.sub('["]', "", user_input)
                 self.search(search_str)
                 self.scrape_web_page()
                 self.print_wiki_page()
+            else:
+                print("Your input could not be read try -h | --help")
+                print("When searching make sure that it is inside \"\"")
+                print("For example: Tree  --> error ")
+                print("            \"Tree\" --> search ")
         elif (len(self._number_commands) > 0 and
-              tokens[0] in [str(x) for x in range(self._number_commands[0], self._number_commands[1])]):
+              tokens[0] in [str(x) for x in range(self._number_commands[0], (self._number_commands[1] + 1))]):
             if tokens[0] == '0':
                 self.print_links_on_page()
                 self._number_commands[0] = 1
