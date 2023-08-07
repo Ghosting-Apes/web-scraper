@@ -1,11 +1,14 @@
 from requests_html import HTMLSession
 import random
 import json
+import os
 import datetime
 
+
 def getRandomUserAgent():
-    lines = open('user-agents.txt').read().splitlines()
+    lines = open("user-agents.txt").read().splitlines()
     return random.choice(lines)
+
 
 def reddit(num):
     # Instantiate the session
@@ -30,6 +33,7 @@ def reddit(num):
     cleaner = [nums for nums in clean if 'post' in nums]
     return cleaner
 
+
 def linkDisplay(cleaner):
     for i,num in enumerate(cleaner):
         dt = datetime.datetime.fromtimestamp(num['post']['created_timestamp'] / 1000.0, tz=datetime.timezone.utc)
@@ -45,9 +49,11 @@ def printComment(comment, indent=0):
             for reply in comment['data']['replies']['data']['children']:
                 printComment(reply, indent+1)
 
+
 def printComments(data):
     for comment in data['data']['children']:
         printComment(comment)
+
 
 def comments(Link):
     # Instantiate the session
@@ -66,8 +72,6 @@ def comments(Link):
     print(jresponse['data']['children'][0]['data']['body'])
     printComments(jresponse)
     
-    
-
 
 def handleInput():       
     user = ''
@@ -89,6 +93,7 @@ def handleInput():
                 print("Invalid input, please enter an integer.")
             except IndexError:
                 print("Invalid index, please enter a valid number.")
-                
+
+
 if __name__ == "__main__":
     handleInput()

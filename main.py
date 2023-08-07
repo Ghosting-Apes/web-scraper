@@ -5,7 +5,8 @@ import GoogleScrape
 import WikiScrape
 
 app = typer.Typer()
-        
+
+
 @app.command()
 def search(phrase: Annotated[str, typer.Argument(help="Input the phrase to be scraped.")], 
            location: Annotated[str, typer.Argument(help="Input source to scrape (e.g. Wikipedia)")] = "Google"):
@@ -20,6 +21,7 @@ def search(phrase: Annotated[str, typer.Argument(help="Input the phrase to be sc
         RedditScrape.linkDisplay(rbox)
     else:
         print("Not a search engine option. ::") 
+
 
 @app.command()
 def run():
@@ -36,9 +38,11 @@ def run():
         WikiScrape.handleInput()
         exit()
 
+
 @app.callback()
 def main():
     pass
+
         
 if __name__ == "__main__":
     app()

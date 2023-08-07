@@ -3,9 +3,11 @@ import random
 from goose3 import Goose
 from goose3.configuration import Configuration
 from urllib.parse import urlparse, parse_qs
+import os
+
 
 def getRandomUSerAgent():
-    lines = open('user-agents.txt').read().splitlines()
+    lines = open("user-agents.txt").read().splitlines()
     return random.choice(lines)
 
 
@@ -46,6 +48,7 @@ def google(phrase):
     
     return [clean,linkElementsClean]
 
+
 def linkDisplay(doubleObj):
     results = doubleObj[0]
     links = doubleObj[1]
@@ -61,7 +64,8 @@ def linkDisplay(doubleObj):
     print("="*50 + "\n")
     for i, num in enumerate(links, start=1):
         print(f"Link #{i}: {num.text}\n")
-        
+
+
 def linkPage(linker):
     url = extract_url(linker)
     # create a configuration object
@@ -83,6 +87,7 @@ def linkPage(linker):
 
     print("\033[1m" + "Article Text: " + "\033[0m")
     print(article.cleaned_text + "\n")
+
 
 def handleInput(): 
     user = ''
@@ -107,6 +112,7 @@ def handleInput():
                 print("Invalid input, please enter an integer.")
             except IndexError:
                 print("Invalid index, please enter a valid number.")
-                
+
+
 if __name__ == "__main__":
     handleInput()
